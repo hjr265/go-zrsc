@@ -14,6 +14,7 @@ The only dependencies are the Go distribution and the `zip` utility.
 ## Examples
 
 - [Hello](examples/hello)
+- [Server](examples/server)
 
 ## Documentation
 
