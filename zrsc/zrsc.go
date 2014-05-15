@@ -52,7 +52,12 @@ func Open(name string) (*File, error) {
 		return nil, initErr
 	}
 
-	rc, err := fs[name].Open()
+	zf, ok := fs[name]
+	if !ok {
+		return nil, os.ErrNotExist
+	}
+
+	rc, err := zf.Open()
 	if err != nil {
 		return nil, err
 	}
