@@ -24,15 +24,23 @@ func main() {
 
 	zipw := zip.NewWriter(f)
 	for _, name := range flag.Args()[1:] {
-		w, err := zipw.Create(name)
-		catch(err)
+		err := filepath.Walk(name, func(name string, info os.FileInfo, err error) error {
+			catch(err)
 
-		path, err := filepath.Abs(name)
-		catch(err)
-		f, err := os.Open(path)
-		catch(err)
+			zfh, err := zip.FileInfoHeader(info)
+			catch(err)
+			zfh.Name = name
+			w, err := zipw.CreateHeader(zfh)
+			catch(err)
 
-		_, err = io.Copy(w, f)
+			if !info.IsDir() {
+				f, err := os.Open(name)
+				catch(err)
+				_, err = io.Copy(w, f)
+				catch(err)
+			}
+			return nil
+		})
 		catch(err)
 	}
 	err = zipw.Close()
