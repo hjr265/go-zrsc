@@ -16,14 +16,18 @@ func init() {
 }
 
 func main() {
-	exePath, err := filepath.Abs(flag.Arg(0))
+	if flag.Arg(0) != "embed" {
+		log.Fatalf("Unknown command %s", flag.Arg(0))
+	}
+
+	exePath, err := filepath.Abs(flag.Arg(1))
 	catch(err)
 
 	f, err := os.OpenFile(exePath, os.O_RDWR|os.O_APPEND, 0666)
 	catch(err)
 
 	zipw := zip.NewWriter(f)
-	for _, name := range flag.Args()[1:] {
+	for _, name := range flag.Args()[2:] {
 		err := filepath.Walk(name, func(name string, info os.FileInfo, err error) error {
 			catch(err)
 
@@ -46,7 +50,7 @@ func main() {
 	err = zipw.Close()
 	catch(err)
 
-	cmd := exec.Command("zip", "-A", flag.Arg(0))
+	cmd := exec.Command("zip", "-A", flag.Arg(1))
 	err = cmd.Run()
 	catch(err)
 }
