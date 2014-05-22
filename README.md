@@ -7,7 +7,7 @@ Go-zrsc allows you to embed arbitrary files within your binary and provides simp
 Install Go-zrsc using the go get command:
 
     $ go get github.com/hjr265/go-zrsc/zrsc
-    $ go get github.com/hjr265/go-zrsc/zrsc-embed
+    $ go get github.com/hjr265/go-zrsc/cmd/zrsc
 
 The only dependencies are the Go distribution and the `zip` utility.
 

@@ -7,7 +7,7 @@ This example shows how to embed files in the binary and serve them over HTTP.
 Build the program and embed the `.txt` files
 
     $ go build
-    $ zrsc-embed server public/one.txt public/two/three.txt
+    $ zrsc embed server public/one.txt public/two/three.txt
 
 Running the binary should start a file server at `:8080`:
     
